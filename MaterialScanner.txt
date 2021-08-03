@@ -1,0 +1,33 @@
+scnOut="" n="\n"
+if:Point==1 THEN :scn=1 :Scan="Wait--" GOTO 3 ELSE GOTO 2 END
+if :scnRes>0 THEN :scnId=0 scnOut="" GOTO 4 ELSE GOTO 2 END
+scnOut=scnOut+:scnMat+n+scnVol+n GOTO 5
+:scnId++
+if :scnId>=scnRes THEN :Scan=scnOut GOTO 7 ELSE GOTO 4 END
+:Point=0 :scnId=0 :scnReset=1 GOTO 2
+
+//scnOut : temp var to store final output while scan completes
+//n : new line
+//:Point : 'Active' field for Mat Point Scanner
+//:scn : 'Scan' field for Mat Point Scanner
+//:Scan : Text Display
+//:scnRes : 'ScanResults' field for Mat Point Scanner
+//:scnId : 'Index' field for Mat Point Scanner
+//:scnMat : 'Material' field for Mat Point Scanner
+//:scnVol : 'Volume' field for Mat Point Scanner
+//:scnReset : 'Reset' field for Mat Point Scanner
+
+//Definitions
+scnOut="" n="\n"
+//Check if Mat Point Scanner is active, initiates scan and sets status text
+if:Point==1 THEN :scn=1 :Scan="Wait--" GOTO 3 ELSE GOTO 2 END
+//Checks if scan has returned results, resets index and output
+if :scnRes>0 THEN :scnId=0 scnOut="" GOTO 4 ELSE GOTO 2 END
+//Updates output with material and volume of current index, with new lines
+scnOut=scnOut+:scnMat+n+scnVol+n GOTO 5
+//Incrememnts scanner index
+:scnId++
+//Compares scanner index to number of results (indexing at 0) and outputs results if there are no more items in the array
+if :scnId>=scnRes THEN :Scan=scnOut GOTO 7 ELSE GOTO 4 END
+//Once the scan completes, turn off laser, reset index, and reset the scanner's results
+:Point=0 :scnId=0 :scnReset=1 GOTO 2
