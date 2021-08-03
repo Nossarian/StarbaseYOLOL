@@ -31,3 +31,7 @@ scnOut=scnOut+:scnMat+n+scnVol+n GOTO 5
 if :scnId>=scnRes THEN :Scan=scnOut GOTO 7 ELSE GOTO 4 END
 //Once the scan completes, turn off laser, reset index, and reset the scanner's results
 :Point=0 :scnId=0 :scnReset=1 GOTO 2
+
+//\\PURPOSE AND FUNCTIONALITY//\\
+This script takes the results of a successful material scan and outputs each material to a new line separated string.
+The script handles any number of results, but larger text screens are necessary -- 8/2/2021
